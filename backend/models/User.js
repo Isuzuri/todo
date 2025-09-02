@@ -12,6 +12,17 @@ const User = sequelize.define('User', {
     password: {
         type: DataTypes.STRING
     },
-}, {})
+}, {
+    defaultScope: {
+        attributes: {
+            exclude: ['password']
+        },
+    },
+    scopes: {
+        withPassword: {
+            include: ['password']
+        }
+    }
+})
 
 export default User;
