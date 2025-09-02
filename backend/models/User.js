@@ -20,7 +20,9 @@ const User = sequelize.define('User', {
     },
     scopes: {
         withPassword: {
-            include: ['password']
+            attributes: {
+                include: ['password']
+            }
         }
     }
 })

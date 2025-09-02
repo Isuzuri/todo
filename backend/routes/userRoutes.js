@@ -33,7 +33,7 @@ router.post('/login', async (req, res) => {
         if (!user) return res.status(404).json({ error: 'Username not found' })
         const valid = await bcrypt.compare(req.body.password, user.password)
         if (!valid) return res.status(403).json({ error: 'Incorrect password' })
-        const token = generateToken({ username: user.username })
+        const token = generateToken({ id: user.id, username: user.username })
         res.cookie('token', token, {
             httpOnly: true,
             secure: true,
