@@ -13,6 +13,7 @@ router.post('/create', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const user = await User.create({ ...req.body, password: hashedPassword })
+        const { password, ...safeUser } = user.toJSON();
         const token = generateToken({ id: user.id, username: user.username })
         res.cookie('token', token, {
             httpOnly: true,
@@ -20,7 +21,7 @@ router.post('/create', async (req, res) => {
             sameSite: 'Strict',
             maxAge: 3600000 // 1 час
         });
-        res.status(201).json({ user })
+        res.status(201).json({ user: safeUser })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -29,10 +30,11 @@ router.post('/create', async (req, res) => {
 // LOGIN
 router.post('/login', async (req, res) => {
     try {
-        const user = await User.scope('withPassword').findOne({ where: { username: req.body.username } })
+        const user = await User.findOne({ where: { username: req.body.username } })
         if (!user) return res.status(404).json({ error: 'Username not found' })
         const valid = await bcrypt.compare(req.body.password, user.password)
         if (!valid) return res.status(403).json({ error: 'Incorrect password' })
+        const { password, ...safeUser } = user.toJSON();
         const token = generateToken({ id: user.id, username: user.username })
         res.cookie('token', token, {
             httpOnly: true,
@@ -40,7 +42,7 @@ router.post('/login', async (req, res) => {
             sameSite: 'Strict',
             maxAge: 3600000 // 1 час
         });
-        res.status(201).json({ user })
+        res.status(201).json({ user: safeUser })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
