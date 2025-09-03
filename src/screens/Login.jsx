@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import authApi from '../api/auth';
+import authApi from '../api/authApi';
 import { useAuth } from '../context/authContext';
 
 const Login = () => {
@@ -14,7 +14,7 @@ const Login = () => {
       setUser(response.data.user)
       setFormData({ username: '', password: '' })
     } catch (error) {
-      console.error(err.response?.data || err.message);
+      console.error(error.response?.data || error.message);
     }
   };
 

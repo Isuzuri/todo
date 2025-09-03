@@ -13,9 +13,9 @@ app.use(express.json())
 
 // CORS Policy 
 app.use(cors({
-    origin: 'http://localhost:5173/',
-    credentials: true
-  }));
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 
 // Cookie connect
 app.use(cookieParser());
@@ -26,11 +26,11 @@ app.use('/task', taskRoutes)
 
 // DB Sync and Server start (if all good)
 sequelize.sync().then(() => {
-    console.log('База данных синхронизирована');
-    app.listen(process.env.PORT, () => {
-      console.log('Server is running on port', process.env.PORT);
-    });
-  }).catch(err => {
-    console.error('Ошибка синхронизации базы:', err);
+  console.log('База данных синхронизирована');
+  app.listen(process.env.PORT, () => {
+    console.log('Server is running on port', process.env.PORT);
   });
-  
+}).catch(err => {
+  console.error('Ошибка синхронизации базы:', err);
+});
+

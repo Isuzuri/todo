@@ -24,7 +24,7 @@ body {
   gap: 0.5rem;
 }
 
-.addTaskButton {
+.addTaskForm {
   display: inline-flex;
   gap: 0.5rem;
 }
