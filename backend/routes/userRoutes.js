@@ -59,6 +59,17 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+// GET CURRENT USER
+router.get('/me', authenticateToken, async (req, res) => {
+    try {
+        const user = await req.user
+        const {password, ...safeUser} = user
+        res.status(200).json({user: safeUser})
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+})
+
 // UPDATE
 router.patch('/:id', authenticateToken, async (req, res) => {
     try {
