@@ -1,12 +1,23 @@
 import React from 'react'
+import { useTasks } from '../context/tasksContext'
 
-const TaskItem = ({ task, completeTask, deleteTask }) => {
+const TaskItem = ({ task }) => {
+  const { completeTask, deleteTask } = useTasks()
+
+  const toggleComplete = async () => {
+    completeTask(task.id, { ...task, isComplete: !task.isComplete })
+  }
+
+  const handleDelete = async () => {
+    deleteTask(task.id)
+  }
+
   return (
     <li className={task.isComplete ? 'completed' : ''}>
       <span>{task.title}</span>
       <div>
-        <button onClick={() => completeTask(task.id, { ...task, isComplete: !task.isComplete })}>{task.isComplete ? '↩' : '✔'}</button>
-        <button onClick={() => deleteTask(task.id)}>✖</button>
+        <button onClick={toggleComplete}>{task.isComplete ? '↩' : '✔'}</button>
+        <button onClick={handleDelete}>✖</button>
       </div>
     </li>
   )

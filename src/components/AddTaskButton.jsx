@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
+import { useTasks } from '../context/tasksContext'
 
-const AddTaskButton = ({ onAdd }) => {
+const AddTaskButton = () => {
   const [formData, setFormData] = useState({ title: '' })
+  const {addTask} = useTasks()
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.title.trim()) {
-      onAdd(formData);
-      setFormData({ title: '' }); // очистка поля после добавления
+      addTask(formData);
+      setFormData({ title: '' });
     }
   }
 
