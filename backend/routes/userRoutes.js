@@ -7,11 +7,11 @@ const router = express.Router()
 
 // CREATE
 router.post('/create', async (req, res) => {
+    const isExist = !!User.findOne({where: {username: req.body.username}})
+    if (isExist) return res.status(400).json({error: "Username already in use"})
     if (!req.body.username || !req.body.password || req.body.password.length < 6) {
         return res.status(400).json({ error: "Invalid username or password" })
     }
-    const isExist = !!User.findOne({where: {username: req.body.username}})
-    if (isExist) return res.status(400).json({error: "Username already in use"})
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const user = await User.create({ ...req.body, password: hashedPassword })
