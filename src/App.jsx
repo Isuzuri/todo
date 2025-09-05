@@ -4,7 +4,9 @@ import Auth from './screens/Auth'
 import ToDoList from './screens/ToDoList'
 
 function App() {
-  const {isAuthenticated} = useAuth()
+  const {isAuthenticated, isLoading} = useAuth()
+
+  if (isLoading) return null
 
   return (
     <div className='wrap'>
