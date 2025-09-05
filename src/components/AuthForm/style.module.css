@@ -8,3 +8,8 @@
 .loginForm button {
     width: 150px;
 }
+
+.error {
+    color: #e74c3c;
+    font-size: 0.9rem;
+}
