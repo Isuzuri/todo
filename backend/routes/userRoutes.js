@@ -50,23 +50,23 @@ router.post('/login', async (req, res) => {
     }
 })
 
-//READ ONE
-router.get('/:id', async (req, res) => {
-    try {
-        const user = await User.findByPk(req.params.id)
-        if (!user) return res.status(404).json({ error: 'User not found' });
-        res.status(200).json(user)
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-})
-
 // GET CURRENT USER
 router.get('/me', authenticateToken, async (req, res) => {
     try {
         const user = await req.user
         const {password, ...safeUser} = user
         res.status(200).json({user: safeUser})
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+})
+
+//READ ONE
+router.get('/:id', async (req, res) => {
+    try {
+        const user = await User.findByPk(req.params.id)
+        if (!user) return res.status(404).json({ error: 'User not found' });
+        res.status(200).json(user)
     } catch (error) {
         res.status(400).json({ error: error.message })
     }

@@ -10,7 +10,7 @@ const TaskList = () => {
   return (
     <div className={s.taskList}>
       <ul>
-        {taskList && taskList.length > 0 ? taskList.map(item => (
+        {taskList.length > 0 ? taskList.map(item => (
           <TaskItem key={item.id} task={item} />
         )) : <Empty />}
       </ul>

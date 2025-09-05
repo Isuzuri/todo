@@ -13,7 +13,7 @@ export const TasksProvider = ({ children }) => {
 
   const addTask = async (data) => {
     const response = await taskApi.create(data)
-    setTaskList((prev) => [...taskList, response.data])
+    setTaskList((prev) => [...prev, response.data])
   }
 
   const completeTask = async (id, data) => {

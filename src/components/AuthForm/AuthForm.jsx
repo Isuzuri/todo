@@ -5,6 +5,7 @@ import s from './style.module.css'
 
 const AuthForm = () => {
   const [isRegistering, setIsRegistering] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [formData, setFormData] = useState({ username: '', password: '' })
   const { setUser } = useAuth()
@@ -22,6 +23,7 @@ const AuthForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true)
     try {
       const response = isRegistering ? await authApi.signIn(formData) : await authApi.login(formData)
       setUser(response.data.user)
@@ -29,6 +31,8 @@ const AuthForm = () => {
     } catch (error) {
       const msg = error.response?.data?.error || 'Unexpected error';
       setErrorMessage(msg);
+    } finally {
+      setIsSubmitting(false)
     }
   };
 
@@ -39,14 +43,14 @@ const AuthForm = () => {
         <input type='text' placeholder='Username' required value={formData.username} onChange={(e) => setFormData({ ...formData, username: e.target.value })} />
         <input type='password' placeholder='Password' required value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} />
         <div className={s.error}>{errorMessage}</div>
-        <button type='submit'>
+        <button type='submit' disabled={isSubmitting}>
           {isRegistering ? 'Create Account' : 'Login'}
         </button>
         <p>
           {isRegistering
             ? 'Already have an account? '
             : "Don't have an account? "}
-          <a
+          <a role='button'
             onClick={() => setIsRegistering(!isRegistering)}
           >
             {isRegistering ? 'Login' : 'Register'}
