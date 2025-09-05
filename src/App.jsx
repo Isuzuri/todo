@@ -1,6 +1,6 @@
 import './App.css'
 import { useAuth } from './context/authContext'
-import Login from './screens/Login'
+import Auth from './screens/Auth'
 import ToDoList from './screens/ToDoList'
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
 
   return (
     <div className='wrap'>
-      {isAuthenticated ? <ToDoList /> : <Login />}
+      {isAuthenticated ? <ToDoList /> : <Auth />}
     </div>
   )
 }

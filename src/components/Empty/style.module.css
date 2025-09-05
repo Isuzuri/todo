@@ -1,0 +1,17 @@
+.emptyState {
+    background-color: #1f2833;
+    border: 1px dashed #45aaf2;
+    color: #a0aec0;
+    padding: 1rem;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1rem;
+    max-width: 400px;
+    margin-top: 1rem;
+    box-shadow: 0 0 4px rgba(69, 170, 242, 0.2);
+}
+
+.emptyState p {
+    margin: 0;
+    font-style: italic;
+}

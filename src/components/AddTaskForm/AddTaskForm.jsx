@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { useTasks } from '../context/tasksContext'
+import { useTasks } from '../../context/tasksContext'
+import s from './style.module.css'
 
-const AddTaskButton = () => {
+const AddTaskForm = () => {
   const [formData, setFormData] = useState({ title: '' })
   const {addTask} = useTasks()
 
@@ -14,11 +15,11 @@ const AddTaskButton = () => {
   }
 
   return (
-      <form onSubmit={handleSubmit} className='addTaskForm'>
+      <form onSubmit={handleSubmit} className={s.addTaskForm}>
         <input type='text' required value={formData.title} onChange={(e) => setFormData({ title: e.target.value })} />
         <button type='submit'>Add</button>
       </form>
   )
 }
 
-export default AddTaskButton
+export default AddTaskForm

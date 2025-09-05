@@ -1,5 +1,6 @@
 import React from 'react'
-import { useTasks } from '../context/tasksContext'
+import { useTasks } from '../../context/tasksContext'
+import s from './style.module.css'
 
 const TaskItem = ({ task }) => {
   const { completeTask, deleteTask } = useTasks()
@@ -13,7 +14,7 @@ const TaskItem = ({ task }) => {
   }
 
   return (
-    <li className={task.isComplete ? 'completed' : ''}>
+    <li className={task.isComplete ? s.completed : ''}>
       <span>{task.title}</span>
       <div>
         <button onClick={toggleComplete}>{task.isComplete ? '↩' : '✔'}</button>

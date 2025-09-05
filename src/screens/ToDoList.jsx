@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import AddTaskButton from '../components/addTaskButton'
-import TaskList from '../components/TaskList'
-import taskApi from '../api/taskApi.js'
+import React, { useEffect } from 'react'
 import { useTasks } from '../context/tasksContext.jsx'
+import AddTaskForm from '../components/AddTaskForm/AddTaskForm.jsx'
+import TaskList from '../components/TaskList/TaskList.jsx'
 
 const ToDoList = () => {
   const { refreshTasks } = useTasks()
@@ -14,7 +13,7 @@ const ToDoList = () => {
   return (
     <>
       <h1>To-Do List</h1>
-      <AddTaskButton />
+      <AddTaskForm />
       <TaskList/>
     </>
   )
